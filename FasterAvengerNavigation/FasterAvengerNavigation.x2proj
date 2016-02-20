@@ -21,6 +21,9 @@
     <Content Include="ReadMe.txt">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UIFacilityGrid_Listener_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\FasterAvengerNavigation\Classes\XCGRI_FAN.uc">
       <SubType>Content</SubType>
     </Content>
