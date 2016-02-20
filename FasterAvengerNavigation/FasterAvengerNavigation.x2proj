@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Default" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Guid>15b52373-ea05-4b01-a5c8-506f758b894b</Guid>
+    <Name>FasterAvengerNavigation</Name>
+    <Description>Makes nearly all the transitions in the Avenger instant for a smoother experience, particularly on lower framerates.</Description>
+    <SteamPublishID>0</SteamPublishID>
+    <AssemblyName>FasterAvengerNavigation</AssemblyName>
+    <RootNamespace>FasterAvengerNavigation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Config\XComEditor.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Config\XComEngine.ini">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModPreview.jpg">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ReadMe.txt">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\Camera_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UIArmory_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UIArmory_MainMenu_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UIInventory_Implants_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UISS_ListItem_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\UISS_UtilityItem_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\XCGRI_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Src\FasterAvengerNavigation\Classes\XComHQ_FAN.uc">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config" />
+    <Folder Include="Localization" />
+    <Folder Include="Content" />
+    <Folder Include="Src" />
+    <Folder Include="Src\FasterAvengerNavigation" />
+    <Folder Include="Src\FasterAvengerNavigation\Classes" />
+    <Folder Include="Src\XComGame" />
+    <Folder Include="Src\XComGame\Classes" />
+  </ItemGroup>
+  <Import Project="$(MSBuildLocalExtensionPath)\XCOM2.targets" />
+</Project>
