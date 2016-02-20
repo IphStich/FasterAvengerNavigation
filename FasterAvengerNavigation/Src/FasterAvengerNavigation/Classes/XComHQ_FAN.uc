@@ -6,28 +6,10 @@ function UIArmory_MainMenu(StateObjectReference UnitRef, optional name DispEvent
 		UIArmory_MainMenu(ScreenStack.Push(Spawn(class'UIArmory_MainMenu', self), Get3DMovie())).InitArmory(UnitRef, , SoldSpawnEvent, , HideEvent, RemoveEvent, true);
 }
 
-/*reliable client function CAMLookAtEarth( vector2d v2Location, optional float fZoom = 1.0f, optional float fInterpTime = 0.75f )
-{
-	fInterpTime *= 0.001f;
-
-	XComHeadquartersCamera(XComHeadquartersController(Owner).PlayerCamera).NewEarthView(fInterpTime);
-	`EARTH.SetViewLocation(v2Location);
-	`EARTH.SetCurrentZoomLevel(fZoom);
-
-	//m_kCamera.LookAtEarth( v2Location, fZoom, bCut );
-	//GetCamera().FocusOnEarthLocation(v2Location, fZoom, fInterpTime);
-}*/
-
 reliable client function CAMLookAtNamedLocation( string strLocation, optional float fInterpTime = 2, optional bool bSkipBaseViewTransition )
 {
-	fInterpTime *= 0.001f;
-	GetCamera().StartRoomViewNamed(name(strLocation), fInterpTime, bSkipBaseViewTransition);
+	super.CAMLookAtNamedLocation (strLocation, fInterpTime * 0.001f, bSkipBaseViewTransition);
 }
-
-/*function CAMLookAtRoom(XComGameState_HeadquartersRoom RoomStateObject, optional float fInterpTime = 2 )
-{
-	super.CAMLookAtRoom (RoomStateObject, fInterpTime * 0.001f);
-}*/
 
 reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTime = 2 )
 {
