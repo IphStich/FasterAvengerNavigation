@@ -20,5 +20,5 @@ function OnLoseFocus(UIScreen screen)
 
 defaultproperties
 {
-    ScreenClass = 'UIFacilityGrid'
+    ScreenClass = UIFacilityGrid
 }
