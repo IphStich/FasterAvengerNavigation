@@ -2,6 +2,7 @@ class XComHQ_FAN extends XComHQPresentationLayer config(FasterAvengerNavigation)
 
 var config float AvatarPauseMultiplier;
 var config bool InstantRoomTransitions;
+var config bool SkipHologlobeDissolveAnimation;
 
 var private Vector2D DoomEntityLoc; // for doom panning
 
@@ -29,6 +30,12 @@ reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTi
 
 function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
+    if(!SkipHologlobeDissolveAnimation)
+    {
+        super.UIEnterStrategyMap(bSmoothTransitionFromSideView);
+        return;
+    }
+
 	m_kAvengerHUD.ClearResources();
 	m_kAvengerHUD.HideEventQueue();
 	m_kFacilityGrid.Hide();
@@ -39,6 +46,12 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
+    if(!SkipHologlobeDissolveAnimation)
+    {
+        super.ExitStrategyMap(bSmoothTransitionFromSideView);
+        return;
+    }
+
 	m_kXComStrategyMap.ExitStrategyMap();
 
 	OnRemoteEvent('FinishedTransitionFromMap');
