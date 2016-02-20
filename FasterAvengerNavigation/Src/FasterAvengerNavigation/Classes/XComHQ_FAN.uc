@@ -8,7 +8,7 @@ function UIArmory_MainMenu(StateObjectReference UnitRef, optional name DispEvent
 
 reliable client function CAMLookAtNamedLocation( string strLocation, optional float fInterpTime = 2, optional bool bSkipBaseViewTransition )
 {
-	super.CAMLookAtNamedLocation (strLocation, fInterpTime * 0.001f, true);
+	super.CAMLookAtNamedLocation (strLocation, fInterpTime * 0.001f, bSkipBaseViewTransition);
 }
 
 reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTime = 2 )
