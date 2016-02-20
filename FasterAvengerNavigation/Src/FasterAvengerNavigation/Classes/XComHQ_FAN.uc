@@ -15,14 +15,14 @@ function UIArmory_MainMenu(StateObjectReference UnitRef, optional name DispEvent
 reliable client function CAMLookAtNamedLocation( string strLocation, optional float fInterpTime = 2, optional bool bSkipBaseViewTransition )
 {
 	if(InstantRoomTransitions)
-        fInterpTime *= 0.001f;
-    super.CAMLookAtNamedLocation (strLocation, fInterpTime, bSkipBaseViewTransition);
+		fInterpTime *= 0.001f;
+	super.CAMLookAtNamedLocation (strLocation, fInterpTime, bSkipBaseViewTransition);
 }
 
 reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTime = 2 )
 {
 	if(InstantRoomTransitions)
-        fInterpTime *= 0.001f;
+		fInterpTime *= 0.001f;
 	super.CAMLookAtHQTile (x, y, fInterpTime);
 }
 
@@ -32,16 +32,16 @@ reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTi
 
 function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
-    if(!SkipHologlobeDissolveAnimation)
-    {
-        super.UIEnterStrategyMap(bSmoothTransitionFromSideView);
-        return;
-    }
+	if(!SkipHologlobeDissolveAnimation)
+	{
+		super.UIEnterStrategyMap(bSmoothTransitionFromSideView);
+		return;
+	}
 
-    CleanupAvengerHUD();
-    SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
+	CleanupAvengerHUD();
+	SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
 
-    OnRemoteEvent('FinishedTransitionIntoMap');
+	OnRemoteEvent('FinishedTransitionIntoMap');
 }
 
 private function CleanupAvengerHUD()
@@ -54,15 +54,15 @@ private function CleanupAvengerHUD()
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
-    if(!SkipHologlobeDissolveAnimation)
-    {
-        super.ExitStrategyMap(bSmoothTransitionFromSideView);
-        return;
-    }
+	if(!SkipHologlobeDissolveAnimation)
+	{
+		super.ExitStrategyMap(bSmoothTransitionFromSideView);
+		return;
+	}
 
 	m_kXComStrategyMap.ExitStrategyMap();
 
-    OnRemoteEvent('FinishedTransitionFromMap');
+	OnRemoteEvent('FinishedTransitionFromMap');
 }
 
 //----------------------------------------------------
