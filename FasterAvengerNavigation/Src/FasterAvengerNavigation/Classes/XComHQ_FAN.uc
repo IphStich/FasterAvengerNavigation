@@ -15,3 +15,22 @@ reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTi
 {
 	super.CAMLookAtHQTile (x, y, fInterpTime * 0.001f);
 }
+
+/// Skip the hologlobe dissolve animations
+
+function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
+{
+	m_kAvengerHUD.ClearResources();
+	m_kAvengerHUD.HideEventQueue();
+	m_kFacilityGrid.Hide();
+	m_kAvengerHUD.Shortcuts.Hide();
+
+	OnRemoteEvent('FinishedTransitionIntoMap');
+}
+
+function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
+{
+	m_kXComStrategyMap.ExitStrategyMap();
+
+	OnRemoteEvent('FinishedTransitionFromMap');
+}
