@@ -1,4 +1,6 @@
-class XComHQ_FAN extends XComHQPresentationLayer;
+class XComHQ_FAN extends XComHQPresentationLayer config(FasterAvengerNavigation);
+
+var config float AvatarPauseMultiplier;
 
 var private Vector2D DoomEntityLoc; // for doom panning
 
@@ -58,7 +60,7 @@ function NonPanClearDoom(bool bPositive)
 		`XSTRATEGYSOUNDMGR.PlaySoundEvent("Doom_IncreasedScreenTear_ON");
 	}
 
-	SetTimer(1.0f, false, nameof(NoPanClearDoomPt2));
+	SetTimer(3.0f*AvatarPauseMultiplier, false, nameof(NoPanClearDoomPt2));
 }
 
 //---------------------------------------------------------------------------------------
@@ -76,11 +78,11 @@ function NoPanClearDoomPt2()
 
 	if(AlienHQ.PendingDoomData.Length > 0)
 	{
-		SetTimer(1.5f, false, nameof(NoPanClearDoomPt2));
+		SetTimer(4.0f*AvatarPauseMultiplier, false, nameof(NoPanClearDoomPt2));
 	}
 	else
 	{
-		SetTimer(1.5f, false, nameof(UnPanDoomFinished));
+		SetTimer(4.0f*AvatarPauseMultiplier, false, nameof(UnPanDoomFinished));
 	}
 }
 
@@ -111,11 +113,11 @@ function DoomCameraPan(XComGameState_GeoscapeEntity EntityState, bool bPositive,
 
 	if(bFirstFacility)
 	{
-		SetTimer(3.0f, false, nameof(StartFirstFacilityCameraPan));
+		SetTimer(3.0f*AvatarPauseMultiplier, false, nameof(StartFirstFacilityCameraPan));
 	}
 	else
 	{
-		SetTimer(1.5f, false, nameof(StartDoomCameraPan));
+		SetTimer(3.0f*AvatarPauseMultiplier, false, nameof(StartDoomCameraPan));
 	}
 }
 
@@ -125,7 +127,7 @@ function StartDoomCameraPan()
 	// Pan to the location
 	CAMLookAtEarth(DoomEntityLoc, 0.5f, `HQINTERPTIME);
 	`XSTRATEGYSOUNDMGR.PlaySoundEvent("Doom_Camera_Whoosh");
-	SetTimer((`HQINTERPTIME + 0.5f), false, nameof(DoomCameraPanComplete));
+	SetTimer((`HQINTERPTIME + 3.0f*AvatarPauseMultiplier), false, nameof(DoomCameraPanComplete));
 }
 
 //---------------------------------------------------------------------------------------
@@ -151,11 +153,11 @@ function DoomCameraPanComplete()
 
 	if(AlienHQ.PendingDoomData.Length > 0)
 	{
-		SetTimer(3.0f, false, nameof(DoomCameraPanComplete));
+		SetTimer(4.0f*AvatarPauseMultiplier, false, nameof(DoomCameraPanComplete));
 	}
 	else
 	{
-		SetTimer(3.0f, false, nameof(UnpanDoomCamera));
+		SetTimer(4.0f*AvatarPauseMultiplier, false, nameof(UnpanDoomCamera));
 	}
 }
 
@@ -204,7 +206,7 @@ function UnpanDoomCamera()
 {
 	CAMRestoreSavedLocation();
 	`XSTRATEGYSOUNDMGR.PlaySoundEvent("Doom_Camera_Whoosh");
-	SetTimer((`HQINTERPTIME + 3.0f), false, nameof(UnPanDoomFinished));
+	SetTimer((`HQINTERPTIME + 3.0f*AvatarPauseMultiplier), false, nameof(UnPanDoomFinished));
 }
 
 //---------------------------------------------------------------------------------------

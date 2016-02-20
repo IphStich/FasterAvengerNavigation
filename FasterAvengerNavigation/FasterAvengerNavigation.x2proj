@@ -16,6 +16,9 @@
     <Content Include="Config\XComEngine.ini">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="Config\XComFasterAvengerNavigation.ini">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ModPreview.jpg">
       <SubType>Content</SubType>
     </Content>
