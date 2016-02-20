@@ -26,7 +26,9 @@ reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTi
 	super.CAMLookAtHQTile (x, y, fInterpTime);
 }
 
-/// Skip the hologlobe dissolve animations
+//----------------------------------------------------
+// HOLOGLOBE DISSOLVE ANIMATION
+//----------------------------------------------------
 
 function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
@@ -36,12 +38,18 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
         return;
     }
 
-	m_kAvengerHUD.ClearResources();
+    CleanupAvengerHUD();
+    SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
+
+    OnRemoteEvent('FinishedTransitionIntoMap');
+}
+
+private function CleanupAvengerHUD()
+{
+   	m_kAvengerHUD.ClearResources();
 	m_kAvengerHUD.HideEventQueue();
 	m_kFacilityGrid.Hide();
 	m_kAvengerHUD.Shortcuts.Hide();
-
-	OnRemoteEvent('FinishedTransitionIntoMap');
 }
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
@@ -54,9 +62,8 @@ function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
 
 	m_kXComStrategyMap.ExitStrategyMap();
 
-	OnRemoteEvent('FinishedTransitionFromMap');
+    OnRemoteEvent('FinishedTransitionFromMap');
 }
-
 
 //----------------------------------------------------
 // DOOM EFFECT
