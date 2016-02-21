@@ -37,19 +37,19 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 		super.UIEnterStrategyMap(bSmoothTransitionFromSideView);
 		return;
 	}
-
+	
+	m_kAvengerHUD.ClearResources();
+	m_kAvengerHUD.HideEventQueue();
+	m_kAvengerHUD.Shortcuts.Hide();
 	CleanupAvengerHUD();
 	SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
-
+	
 	OnRemoteEvent('FinishedTransitionIntoMap');
 }
 
 private function CleanupAvengerHUD()
 {
-   	m_kAvengerHUD.ClearResources();
-	m_kAvengerHUD.HideEventQueue();
 	m_kFacilityGrid.Hide();
-	m_kAvengerHUD.Shortcuts.Hide();
 }
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
