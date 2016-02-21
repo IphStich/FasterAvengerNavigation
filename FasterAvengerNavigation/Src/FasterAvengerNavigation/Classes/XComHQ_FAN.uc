@@ -6,6 +6,8 @@ var config bool SkipHologlobeDissolveAnimation;
 
 var private Vector2D DoomEntityLoc; // for doom panning
 
+var protected int TicksTillMap;
+
 function UIArmory_MainMenu(StateObjectReference UnitRef, optional name DispEvent, optional name SoldSpawnEvent, optional name NavBackEvent, optional name HideEvent, optional name RemoveEvent, optional bool bInstant = false)
 {
 	if(ScreenStack.IsNotInStack(class'UIArmory_MainMenu'))
@@ -32,24 +34,43 @@ reliable client function CAMLookAtHQTile( int x, int y, optional float fInterpTi
 
 function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
-	if(!SkipHologlobeDissolveAnimation)
+	if(!SkipHologlobeDissolveAnimation || !bSmoothTransitionFromSideView)
 	{
 		super.UIEnterStrategyMap(bSmoothTransitionFromSideView);
 		return;
 	}
+
+	m_bCanPause = false;
+	WorldInfo.RemoteEventListeners.AddItem(self);
+
+	// We need at least 5 ticks for it to not break when instantly transitioning
+	// Anything less than 5 will cause the issue
+	TicksTillMap = 5;
 	
 	m_kAvengerHUD.ClearResources();
 	m_kAvengerHUD.HideEventQueue();
-	m_kAvengerHUD.Shortcuts.Hide();
 	m_kFacilityGrid.Hide();
-	
-	OnRemoteEvent('FinishedTransitionIntoMap');
+	m_kAvengerHUD.Shortcuts.Hide();
+}
 
-	//The above event sets a timer for StrategyMap_TriggerGeoscapeEntryEvent().  Let's resolve that timer immediately.
-	if(IsTimerActive(nameof(StrategyMap_TriggerGeoscapeEntryEvent)))
+simulated function Tick( float DeltaTime )
+{
+	super.Tick (DeltaTime);
+	
+	if (TicksTillMap > 0)
 	{
-		ClearTimer(nameof(StrategyMap_TriggerGeoscapeEntryEvent));
-		SetTimer(0.01, false, nameof(StrategyMap_TriggerGeoscapeEntryEvent)); //Can't call function directly because it's private
+		TicksTillMap --;
+		if (TicksTillMap <= 1)
+		{
+			//`log("--------------------------------------------------------------------------------------");
+			// -- Put the test `log functions here,
+			// if we ever want to figure out why we need to wait 5 ticks before instantly transitioning to the globe
+			//`log("--------------------------------------------------------------------------------------");
+		}
+		if (TicksTillMap == 0)
+		{
+			OnRemoteEvent ('FinishedTransitionIntoMap');
+		}
 	}
 }
 
@@ -253,4 +274,9 @@ function UnPanDoomFinished()
 	{
 		GeoscapeEntryEvent();
 	}
+}
+
+DefaultProperties
+{
+	TicksTillMap=0;
 }
