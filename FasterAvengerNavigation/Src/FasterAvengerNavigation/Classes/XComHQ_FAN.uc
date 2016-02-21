@@ -41,8 +41,7 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 	m_kAvengerHUD.ClearResources();
 	m_kAvengerHUD.HideEventQueue();
 	m_kAvengerHUD.Shortcuts.Hide();
-	CleanupAvengerHUD();
-	SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
+	m_kFacilityGrid.Hide();
 	
 	OnRemoteEvent('FinishedTransitionIntoMap');
 
@@ -52,11 +51,6 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 		ClearTimer(nameof(StrategyMap_TriggerGeoscapeEntryEvent));
 		SetTimer(0.01, false, nameof(StrategyMap_TriggerGeoscapeEntryEvent)); //Can't call function directly because it's private
 	}
-}
-
-private function CleanupAvengerHUD()
-{
-	m_kFacilityGrid.Hide();
 }
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
