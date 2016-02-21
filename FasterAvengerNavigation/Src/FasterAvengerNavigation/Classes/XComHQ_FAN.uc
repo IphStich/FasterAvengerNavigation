@@ -62,7 +62,13 @@ function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
 
 	m_kXComStrategyMap.ExitStrategyMap();
 
-	OnRemoteEvent('FinishedTransitionFromMap');
+	//Normally we'd call OnRemoteEvent('FinishedTransitionFromMap') here
+    //However 'FinishedTransitionFromMap' event is all wonky, hiding the UI and then showing it again on a timer, 
+    //causing all sorts of issues.  Avoid that entirely by handling the outcome ourselves
+    if (StrategyMap2D != none)
+		StrategyMap2D.Hide();
+    CAMLookAtNamedLocation("Base", 0.0);
+    SetTimer(0.01, false, nameof(StrategyMap_FinishTransitionExit)); //Trick to call private function!  hehehe
 }
 
 //----------------------------------------------------
