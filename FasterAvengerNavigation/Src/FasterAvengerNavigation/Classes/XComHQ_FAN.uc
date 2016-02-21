@@ -45,6 +45,13 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 	SetTimer(`HQINTERPTIME, false, nameof(CleanupAvengerHUD));
 	
 	OnRemoteEvent('FinishedTransitionIntoMap');
+
+    //The above event sets a timer for StrategyMap_TriggerGeoscapeEntryEvent().  Let's resolve that timer immediately.
+    if(IsTimerActive(nameof(StrategyMap_TriggerGeoscapeEntryEvent)))
+    {
+        ClearTimer(nameof(StrategyMap_TriggerGeoscapeEntryEvent));
+        SetTimer(0.01, false, nameof(StrategyMap_TriggerGeoscapeEntryEvent)); //Can't call function directly because it's private
+    }
 }
 
 private function CleanupAvengerHUD()
