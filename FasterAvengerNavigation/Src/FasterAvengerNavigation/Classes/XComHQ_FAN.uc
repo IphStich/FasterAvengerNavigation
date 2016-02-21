@@ -54,7 +54,7 @@ private function CleanupAvengerHUD()
 
 function ExitStrategyMap(bool bSmoothTransitionFromSideView = false)
 {
-	if(!SkipHologlobeDissolveAnimation)
+	if(!SkipHologlobeDissolveAnimation || !bSmoothTransitionFromSideView)
 	{
 		super.ExitStrategyMap(bSmoothTransitionFromSideView);
 		return;
