@@ -70,6 +70,10 @@ simulated function Tick( float DeltaTime )
 		if (TicksTillMap == 0)
 		{
 			OnRemoteEvent ('FinishedTransitionIntoMap');
+
+			// Display event messages next-tick instead of waiting ~1s
+			if(IsTimerActive(nameof(StrategyMap_TriggerGeoscapeEntryEvent)))
+				SetTimer(0.01, false, nameof(StrategyMap_TriggerGeoscapeEntryEvent));
 		}
 	}
 }
