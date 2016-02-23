@@ -6,6 +6,8 @@ var config bool SkipHologlobeDissolveAnimation;
 
 var private Vector2D DoomEntityLoc; // for doom panning
 
+var bool bCinematicMode;
+
 var protected int TicksTillMap;
 
 function UIArmory_MainMenu(StateObjectReference UnitRef, optional name DispEvent, optional name SoldSpawnEvent, optional name NavBackEvent, optional name HideEvent, optional name RemoveEvent, optional bool bInstant = false)
@@ -56,8 +58,8 @@ function UIEnterStrategyMap(bool bSmoothTransitionFromSideView = false)
 simulated function Tick( float DeltaTime )
 {
 	super.Tick (DeltaTime);
-	
-	if (TicksTillMap > 0)
+
+	if (!bCinematicMode && TicksTillMap > 0)
 	{
 		TicksTillMap --;
 		if (TicksTillMap <= 1)
@@ -278,6 +280,18 @@ function UnPanDoomFinished()
 	{
 		GeoscapeEntryEvent();
 	}
+}
+
+simulated function ShowUIForCinematics()
+{	
+	super.ShowUIForCinematics();
+	bCinematicMode = false;
+}
+
+simulated function HideUIForCinematics()
+{	
+	super.HideUIForCinematics();
+	bCinematicMode = true;
 }
 
 DefaultProperties
